@@ -38,6 +38,26 @@ const questions = [
         type: "input",
         message: "What tests did you run? (if none please write 'Not Applicable')",
         name: "tests"
+    },
+    {
+        type: "input",
+        message: "What is your email address?",
+        name: "email"
+    },
+    {
+        type: "input",
+        message: "What is your GitHub username?",
+        name: "gitHub"
+    },
+    {
+        type: "list",
+        message: "Please select a license",
+        name: "license",
+        choices: [
+            "gpl",
+            "mit",
+            "moz"
+        ]
     }
 
 ];
@@ -57,9 +77,8 @@ function writeToFile(fileName, data) {
 function init() {
     inquirer.prompt(questions)
     .then(function(userResponse) {
-        console.log(userResponse)
         const markdownString = generateMarkdown(userResponse)
-        writeToFile("README.md", markdownString)
+        writeToFile(`${userResponse.projectTitle}.md`, markdownString)
     });
 }
 
