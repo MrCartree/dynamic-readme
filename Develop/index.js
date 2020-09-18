@@ -1,5 +1,6 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
+const generateMarkdown = require("./utils/generateMarkdown")
 
 // array of questions for user
 const questions = [
@@ -26,17 +27,17 @@ const questions = [
     {
         type: "input",
         message: "How is your project used?",
-        name: "Usage"
+        name: "usage"
     },
     {
         type: "input",
         message: "Who are the contributors of this project?",
-        name: "Contributing"
+        name: "contributing"
     },
     {
         type: "input",
         message: "What tests did you run? (if none please write 'Not Applicable')",
-        name: "Tests"
+        name: "tests"
     }
 
 ];
@@ -57,7 +58,8 @@ function init() {
     inquirer.prompt(questions)
     .then(function(userResponse) {
         console.log(userResponse)
-        writeToFile("README.md", data)
+        const markdownString = generateMarkdown(userResponse)
+        writeToFile("README.md", markdownString)
     });
 }
 
